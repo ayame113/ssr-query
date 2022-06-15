@@ -34,6 +34,7 @@ function isJSXElement(arg: any): arg is JSX.Element {
   return arg.nodeKey === nodeKey;
 }
 
+/** JSX factry */
 export function h(
   type: string,
   props?: { [prop: string]: string } | null,
@@ -89,7 +90,8 @@ const singleTag = new Set([
   "track",
   "wbr",
 ]);
-/** Renders a given JSX node to a string. */
+
+/** Render JSX to string */
 export async function renderToString(
   { type, props, children }: JSX.Element,
 ): Promise<string> {

@@ -3,7 +3,12 @@ import { h, renderToString } from "./mod.ts";
 
 const a = (
   <a onload="val">
-    {Promise.resolve([[<a foo="val"></a>], Promise.resolve("aaaa")])}
+    {Promise.resolve([
+      <a foo="val"></a>,
+      Promise.resolve("aaaa"),
+      1,
+      <a-a></a-a>,
+    ])}
   </a>
 );
 // {[<a foo="val">a</a>, Promise.resolve("<hey>")]}

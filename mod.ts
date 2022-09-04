@@ -7,11 +7,14 @@ declare global {
       children?: ChildNode[];
     }
     interface IntrinsicElements {
-      [elemName: string]: unknown;
+      [elemName: string]: {
+        children?: ChildNode;
+        [key: string]: unknown;
+      };
     }
-    // interface ElementChildrenAttribute {
-    //   children: {};
-    // }
+    interface ElementChildrenAttribute {
+      children: unknown;
+    }
   }
 }
 
@@ -25,8 +28,7 @@ type ChildNode =
   | Node
   | Promise<Node>
   | Node[]
-  | Promise<Node[]>
-  | Promise<Promise<Node>[]>;
+  | Promise<(Node | Promise<Node>)[]>;
 
 const nodeKey = Symbol("[nodeKey]");
 // deno-lint-ignore no-explicit-any
@@ -113,5 +115,12 @@ export async function renderToString(
     return `<${type}${_props} />`;
   } else {
     return `<${type}${_props}>${innerHTML}</${type}>`;
+  }
+}
+
+export class WebComponentsRegistry {
+  #registry = new Map<string, string | URL>();
+  get(key: string) {
+    return this.#registry.get(key);
   }
 }

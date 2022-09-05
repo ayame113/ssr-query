@@ -11,7 +11,6 @@ class MyCounter extends Component {
     this.render(
       <div>
         <MyButton onClick={this.#increment} m="1">+</MyButton>
-        <MyButton onClick={this.#increment}></MyButton>
         {this.#span = <span>{this.#count}</span>}
       </div>,
     );
